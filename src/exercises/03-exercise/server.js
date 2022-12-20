@@ -4,12 +4,12 @@ const userData = require("./user-data");
 /**
  * 1. Define the app and assign it to the `app` const
  */
-const app = null;
+const app = express();
 
 /**
  * 2. Add the `express.json()` middleware to use it for all the requests
  */
-// app.use();
+ app.use(express.json());
 
 /**
  * 3. Define a GET request handler for the `/user-data` endpoint
@@ -17,7 +17,17 @@ const app = null;
  *    and an object with a property named `data` and as values
  *    the contents of the `userData` object required above
  */
+app.get(`/user-data`,(req, res) =>{
 
+    try{
+        res.status(200).send({
+            data: {...userData}
+        })
+    }catch(error) {
+        res.status(500).send(error)
+    }
+   
+})
 /**
  * 4. Define a DELETE request handler for the `/users/:userId` endpoint
  *
@@ -29,7 +39,16 @@ const app = null;
  * 4.3 A response with the following shape:
  *     { `data`: `Deleted ${userId}` }
  */
-
+app.delete(`/users/:userId`,(req,res) =>{
+    const {userId} = req.params
+     try{
+        res.status(200).send({
+            data: `Deleted ${userId}`
+        })
+     }catch(error) {
+        res.status(500).send(error)
+    }
+})
 /**
  * 5. Define a PATCH request handler for the `/users/:userId` endpoint
  *
@@ -47,5 +66,20 @@ const app = null;
  *        `lastName`: the lastName property from the request body
  *     }
  */
+app.patch(`/users/:userId`,(req,res) =>{
+    const {userId} = req.params
+    const {firstName , lastName} = req.body
 
+    try{
+        res.status(200).send({
+            data:{
+            id:userId,
+            firstName,
+            lastName}
+        }
+        )
+    }catch(error) {
+        res.status(500).send(error)
+    }}
+)
 module.exports = app;
