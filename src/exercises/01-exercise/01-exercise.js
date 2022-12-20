@@ -13,3 +13,17 @@
  * 2.2. subtract(a, b)
  *    Takes 2 parameters `a` and `b` and returns `b` - `a`
  */
+const BASE_NUM = require('./constants.js')
+
+ const add = (a, b) => {
+    return BASE_NUM + a + b 
+ }
+
+ const subtract = (a, b) => {
+    return b-a
+ }
+
+ module.exports = {
+    add,
+    subtract
+ }
